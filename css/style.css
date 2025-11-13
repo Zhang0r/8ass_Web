@@ -4,7 +4,6 @@ body {
   background-color: #f8f9fa;
 }
 #hero {
-  background: url('../img/hero.jpg') center/cover no-repeat;
   height: 90vh;
   position: relative;
   color: white;
