@@ -94,3 +94,38 @@ $(document).ready(function () {
   });
 
 });
+// === TOGGLE FAVORITE ITEM USING LOCAL STORAGE ===
+document.addEventListener('DOMContentLoaded', function() {
+  const favoriteBtn = document.getElementById('toggle-favorite');
+  const favoriteStatus = document.getElementById('favorite-status');
+  const itemTitle = document.getElementById('item-title')?.innerText;
+  const itemPrice = document.getElementById('item-price')?.innerText;
+
+  if (!favoriteBtn) return;
+
+  const savedItem = localStorage.getItem('favoriteItem');
+  const isFavorited = savedItem && JSON.parse(savedItem).title === itemTitle;
+
+  
+  if (isFavorited) {
+    favoriteBtn.textContent = '❌ Remove from Favorites';
+    favoriteStatus.innerHTML = `<p class="text-success"><strong>${itemTitle}</strong> is in your favorites ❤️</p>`;
+  }
+
+  
+  favoriteBtn.addEventListener('click', () => {
+    const current = localStorage.getItem('favoriteItem');
+
+    if (current && JSON.parse(current).title === itemTitle) {
+      localStorage.removeItem('favoriteItem');
+      favoriteBtn.textContent = '⭐ Add to Favorites';
+      favoriteStatus.innerHTML = `<p class="text-muted">Removed from favorites.</p>`;
+    } else {
+     
+      const item = { title: itemTitle, price: itemPrice };
+      localStorage.setItem('favoriteItem', JSON.stringify(item));
+      favoriteBtn.textContent = '❌ Remove from Favorites';
+      favoriteStatus.innerHTML = `<p class="text-success"><strong>${itemTitle}</strong> added to favorites ❤️</p>`;
+    }
+  });
+});
